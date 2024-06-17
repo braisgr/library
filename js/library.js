@@ -32,6 +32,7 @@ const booksContainer = document.querySelector(".books-container");
 function showBooks(){
   //Limpiamos el contenedor para poder mostrar el array de libros actualizado
   booksContainer.textContent = "";
+  let position = 0;
 
   for(book of myLibrary){
     const bookCard = document.createElement("div");
@@ -57,8 +58,18 @@ function showBooks(){
     const readedElement = document.createElement("p");
     readedElement.textContent = book.readed;
     bookCard.appendChild(readedElement);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.setAttribute("dataPosition", position);
+    deleteButton.classList.add("delete-button");
+    bookCard.appendChild(deleteButton);
+
+    position++;
   }
 }
+
+showBooks();
 
 const newBookButton = document.querySelector(".new-book");
 const modal = document.querySelector(".modal");
@@ -97,4 +108,13 @@ closeButton.addEventListener("click", () => {
   modal.close();
 });
 
-showBooks();
+booksContainer.addEventListener("click", (e) => {
+  if(e.target.classList.contains("delete-button")){
+    const pos = e.target.getAttribute("dataPosition");
+
+    myLibrary.splice(pos,1);
+
+    showBooks();
+  }
+});
+
