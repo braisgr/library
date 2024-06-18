@@ -142,8 +142,11 @@ closeButton.addEventListener("click", () => {
 booksContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-button")) {
     const pos = e.target.getAttribute("dataPosition");
-
-    myLibrary.splice(pos, 1);
+    if(confirm("Are you sure?")){
+      myLibrary.splice(pos, 1);
+    }else{
+      return;
+    }
   }
   if (e.target.classList.contains("readed-button")) {
     const pos = e.target.getAttribute("dataPosition");
