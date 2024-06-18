@@ -56,7 +56,11 @@ function showBooks(){
     bookCard.appendChild(yearElement);
 
     const readedElement = document.createElement("p");
-    readedElement.textContent = book.readed;
+    if(book.readed){
+      readedElement.textContent = "Readed";
+      }else{
+      readedElement.textContent = "Not Readed";
+    }
     bookCard.appendChild(readedElement);
 
     const deleteButton = document.createElement("button");
@@ -64,6 +68,12 @@ function showBooks(){
     deleteButton.setAttribute("dataPosition", position);
     deleteButton.classList.add("delete-button");
     bookCard.appendChild(deleteButton);
+
+    const readedButton = document.createElement("button");
+    readedButton.textContent = "Readed?";
+    readedButton.setAttribute("dataPosition", position);
+    readedButton.classList.add("readed-button");
+    bookCard.appendChild(readedButton);
 
     position++;
   }
@@ -87,11 +97,12 @@ addBookButton.addEventListener("click", () => {
   const pages = document.getElementById("pages").value;
   const year = document.getElementById("year").value;
   const readedElements = document.getElementsByName("readed");
-  let readed = null;
+  let readed = false;
 
   for(let i=0; i<readedElements.length; i++){
     if(readedElements[i].checked){
-      readed = readedElements[i].value;
+      readed = readedElements[i].value === "true";
+      break;
     }
   }
 
@@ -112,9 +123,34 @@ booksContainer.addEventListener("click", (e) => {
   if(e.target.classList.contains("delete-button")){
     const pos = e.target.getAttribute("dataPosition");
 
-    myLibrary.splice(pos,1);
-
-    showBooks();
+    myLibrary.splice(pos,1); 
   }
+  if(e.target.classList.contains("readed-button")){
+    const pos = e.target.getAttribute("dataPosition");
+
+    myLibrary[pos].readed ? myLibrary[pos].readed = false : myLibrary[pos].readed = true;
+  }
+
+  showBooks();
 });
+
+function dialogClickHandler(e){
+  if (e.target.tagName !== 'DIALOG')
+        return;
+
+    const rect = e.target.getBoundingClientRect();
+
+    const clickedInDialog = (
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width
+    );
+
+    if (clickedInDialog === false)
+        e.target.close();
+}
+
+document.addEventListener("click", dialogClickHandler);
+
 
