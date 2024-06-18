@@ -5,45 +5,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-  <button class="new-book">New Book</button>
+  <header>
+    <h2>My Library</h2>
+    <button class="new-book">New Book</button>
+  </header>
+  <main>
+    <div class="books-container"></div>
+  </main>
+  <footer>
+    <a href="https://github.com/braisgr" class="footer-link"><img src="img/github-icon.svg"
+        alt="GitHub Logo"><span>braisgr 2024</span></a>
+  </footer>
   <dialog class="modal">
     <form method="dialog">
       <h3>Add New Book</h3>
-      <div>
-        <label for="title">Title</label>
-        <input type="text" id="title" name="title" required>
+      <div class="modal-inputs">
+        <div class="modal-input">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+        <div class="modal-input">
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" required>
+        </div>
+        <div class="modal-input">
+          <label for="pages">Pages</label>
+          <input type="number" id="pages" name="pages" required>
+        </div>
+        <div class="modal-input">
+          <label for="year">Year</label>
+          <input type="number" name="year" id="year">
+        </div>
       </div>
-      <div>
-        <label for="author">Author</label>
-        <input type="text" id="author" name="author" required>
-      </div>
-      <div>
-        <label for="pages">Pages</label>
-        <input type="number" id="pages" name="pages" required>
-      </div>
-      <div>
-        <label for="year">Year</label>
-        <input type="number" name="year" id="year">
-      </div>
-      <div>
-        <p>Readed?</p>
+      <div class="modal-radio">
+        <p><b>Readed?</b></p>
         <label for="readed-yes">Yes</label>
         <input type="radio" name="readed" id="readed-yes" value="true" required>
 
         <label for="readed-no">No</label>
         <input type="radio" name="readed" id="readed-no" value="false">
       </div>
-      <div>
+      <div class="modal-buttons">
         <button class="close-button">Cancel</button>
         <button class="add-book">Add Book</button>
       </div>
     </form>
   </dialog>
-  <div class="books-container"></div>
 
   <script src="js/library.js"></script>
 </body>

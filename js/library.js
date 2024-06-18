@@ -4,18 +4,95 @@ const myLibrary = [
     author: "J.R.R. Tolkien",
     pages: 722,
     year: 1954,
-    readed: true
+    readed: true,
   },
   {
     title: "Cien años de soledad",
     author: "Gabriel García Márquez",
     pages: 471,
     year: 1967,
-    readed: false
-  }
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
+  {
+    title: "Cien años de soledad",
+    author: "Gabriel García Márquez",
+    pages: 471,
+    year: 1967,
+    readed: false,
+  },
 ];
 
-function Book(title,author,pages,year,readed){
+function Book(title, author, pages, year, readed) {
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -23,18 +100,18 @@ function Book(title,author,pages,year,readed){
   this.readed = readed;
 }
 
-function addBookToLibrary(book){
+function addBookToLibrary(book) {
   return myLibrary.push(book);
 }
 
 const booksContainer = document.querySelector(".books-container");
 
-function showBooks(){
+function showBooks() {
   //Limpiamos el contenedor para poder mostrar el array de libros actualizado
   booksContainer.textContent = "";
   let position = 0;
 
-  for(book of myLibrary){
+  for (book of myLibrary) {
     const bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
     booksContainer.appendChild(bookCard);
@@ -44,22 +121,25 @@ function showBooks(){
     bookCard.appendChild(titleElement);
 
     const authorElement = document.createElement("p");
-    authorElement.textContent = book.author;
+    authorElement.innerHTML = `<b>Author</b>: ${book.author}`;
     bookCard.appendChild(authorElement);
 
     const pagesElement = document.createElement("p");
-    pagesElement.textContent = book.pages;
+    pagesElement.innerHTML = `<b>Pages</b>: ${book.pages}`;
     bookCard.appendChild(pagesElement);
 
     const yearElement = document.createElement("p");
-    yearElement.textContent = book.year;
+    yearElement.innerHTML = `<b>Year</b>: ${book.year}`;
     bookCard.appendChild(yearElement);
 
     const readedElement = document.createElement("p");
-    if(book.readed){
+    readedElement.style.fontWeight = "bold";
+    if (book.readed) {
       readedElement.textContent = "Readed";
-      }else{
+      readedElement.style.color = "#4ade80";
+    } else {
       readedElement.textContent = "Not Readed";
+      readedElement.style.color = "#dc2626";
     }
     bookCard.appendChild(readedElement);
 
@@ -91,7 +171,6 @@ newBookButton.addEventListener("click", () => {
 const addBookButton = document.querySelector(".add-book");
 
 addBookButton.addEventListener("click", () => {
-
   const title = document.getElementById("title").value;
   const author = document.getElementById("author").value;
   const pages = document.getElementById("pages").value;
@@ -99,17 +178,27 @@ addBookButton.addEventListener("click", () => {
   const readedElements = document.getElementsByName("readed");
   let readed = false;
 
-  for(let i=0; i<readedElements.length; i++){
-    if(readedElements[i].checked){
+  if (pages <= 0) {
+    alert("No negative pages allowed");
+    return;
+  }
+
+  if (year < 0) {
+    alert("No negative years allowed");
+    return;
+  }
+
+  for (let i = 0; i < readedElements.length; i++) {
+    if (readedElements[i].checked) {
       readed = readedElements[i].value === "true";
       break;
     }
   }
 
-  const book = new Book(title,author,pages,year,readed);
+  const book = new Book(title, author, pages, year, readed);
 
   addBookToLibrary(book);
-  
+
   showBooks();
 });
 
@@ -117,40 +206,50 @@ const closeButton = document.querySelector(".close-button");
 
 closeButton.addEventListener("click", () => {
   modal.close();
+  clearDialog();
 });
 
 booksContainer.addEventListener("click", (e) => {
-  if(e.target.classList.contains("delete-button")){
+  if (e.target.classList.contains("delete-button")) {
     const pos = e.target.getAttribute("dataPosition");
 
-    myLibrary.splice(pos,1); 
+    myLibrary.splice(pos, 1);
   }
-  if(e.target.classList.contains("readed-button")){
+  if (e.target.classList.contains("readed-button")) {
     const pos = e.target.getAttribute("dataPosition");
 
-    myLibrary[pos].readed ? myLibrary[pos].readed = false : myLibrary[pos].readed = true;
+    myLibrary[pos].readed
+      ? (myLibrary[pos].readed = false)
+      : (myLibrary[pos].readed = true);
   }
 
   showBooks();
 });
 
-function dialogClickHandler(e){
-  if (e.target.tagName !== 'DIALOG')
-        return;
+function dialogClickHandler(e) {
+  if (e.target.tagName !== "DIALOG") return;
 
-    const rect = e.target.getBoundingClientRect();
+  const rect = e.target.getBoundingClientRect();
 
-    const clickedInDialog = (
-        rect.top <= e.clientY &&
-        e.clientY <= rect.top + rect.height &&
-        rect.left <= e.clientX &&
-        e.clientX <= rect.left + rect.width
-    );
+  const clickedInDialog =
+    rect.top <= e.clientY &&
+    e.clientY <= rect.top + rect.height &&
+    rect.left <= e.clientX &&
+    e.clientX <= rect.left + rect.width;
 
-    if (clickedInDialog === false)
-        e.target.close();
+  if (clickedInDialog === false) e.target.close();
+
+  clearDialog();
 }
 
 document.addEventListener("click", dialogClickHandler);
 
-
+function clearDialog() {
+  const title = document.getElementById("title").value = "";
+  const author = document.getElementById("author").value = "";
+  const pages = document.getElementById("pages").value = "";
+  const year = document.getElementById("year").value = "";
+  ["readed-no", "readed-yes"].forEach((id) => {
+    document.getElementById(id).checked = false;
+  });
+}
