@@ -19,15 +19,25 @@ const myLibrary = [
     pages: 188,
     year: 2018,
     readed: false,
-  }
+  },
 ];
 
-function Book(title, author, pages, year, readed) {
+/* function Book(title, author, pages, year, readed) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.year = year;
   this.readed = readed;
+} */
+
+class Book {
+  constructor(title, author, pages, year, readed) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.year = year;
+    this.readed = readed;
+  }
 }
 
 function addBookToLibrary(book) {
@@ -142,9 +152,9 @@ closeButton.addEventListener("click", () => {
 booksContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("delete-button")) {
     const pos = e.target.getAttribute("dataPosition");
-    if(confirm("Are you sure?")){
+    if (confirm("Are you sure?")) {
       myLibrary.splice(pos, 1);
-    }else{
+    } else {
       return;
     }
   }
@@ -178,10 +188,10 @@ function dialogClickHandler(e) {
 document.addEventListener("click", dialogClickHandler);
 
 function clearDialog() {
-  const title = document.getElementById("title").value = "";
-  const author = document.getElementById("author").value = "";
-  const pages = document.getElementById("pages").value = "";
-  const year = document.getElementById("year").value = "";
+  const title = (document.getElementById("title").value = "");
+  const author = (document.getElementById("author").value = "");
+  const pages = (document.getElementById("pages").value = "");
+  const year = (document.getElementById("year").value = "");
   ["readed-no", "readed-yes"].forEach((id) => {
     document.getElementById(id).checked = false;
   });
